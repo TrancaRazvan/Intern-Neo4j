@@ -1,19 +1,21 @@
 package com.example.neo4jproject.model;
 
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Node
-@RequiredArgsConstructor
+@Data
+@NoArgsConstructor
 public class Recipe {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private int preparationTime;

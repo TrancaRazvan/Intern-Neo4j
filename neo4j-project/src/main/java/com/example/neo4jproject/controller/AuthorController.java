@@ -19,8 +19,5 @@ public class AuthorController {
     @Autowired
     private final AuthorService authorService;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Author>> showAllAuthors(){
-        return new ResponseEntity<>(authorService.getLimitedAuthors(25), HttpStatus.OK);
-    }
+
 }
