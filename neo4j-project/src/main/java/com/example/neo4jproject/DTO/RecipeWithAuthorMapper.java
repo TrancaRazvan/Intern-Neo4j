@@ -9,13 +9,13 @@ import java.util.function.Function;
 
 @Data
 @Component
-public class RecipeDTOMapper implements Function<Recipe, RecipeDTO> {
+public class RecipeWithAuthorMapper implements Function<Recipe, RecipeWithAuthor> {
 
     private final AuthorService authorService;
 
     @Override
-    public RecipeDTO apply(Recipe recipe) {
-        return new RecipeDTO(
+    public RecipeWithAuthor apply(Recipe recipe) {
+        return new RecipeWithAuthor(
                 recipe.getName(),
                 authorService.setAuthorToRecipe(recipe),
                 recipe.getIngredientList().size(),
