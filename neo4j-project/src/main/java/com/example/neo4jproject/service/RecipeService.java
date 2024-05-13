@@ -5,16 +5,19 @@ import com.example.neo4jproject.DTO.RecipeInfoMapper;
 import com.example.neo4jproject.DTO.RecipeWithAuthor;
 import com.example.neo4jproject.DTO.RecipeWithAuthorMapper;
 import com.example.neo4jproject.model.Recipe;
+import com.example.neo4jproject.repository.IngredientRepository;
 import com.example.neo4jproject.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NameNotFoundException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,4 +40,15 @@ public class RecipeService {
             return recipeInfoMapper.apply(recipe);
         } else return null;
     }
+    public Page<RecipeWithAuthor> getRecipesByKeyword(int pageNumber, int pageSize, String keyword) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("name").ascending());
+        return recipeRepository.findByNameContaining(pageRequest, keyword).map(recipeWithAuthorMapper);
+    }
+
+    //Requirement 4,
+//    public Page<Recipe> findRecipesByIngredient(String ingredientName, int pageNumber, int pageSize) {
+//        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+//        return recipeRepository.findByIngredientName(pageRequest, ingredientName);
+//    }
+
 }
