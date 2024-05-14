@@ -17,7 +17,11 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
             <form class="d-flex" role="search" action="http://localhost:8080/recipes/search-by-name/page/0/" method="get">
-                <input class="form-control me-2" type="text" name="query" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="text" name="query" placeholder="Search recipe" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <form class="d-flex" role="search" action="http://localhost:8080/author/search-by-name/page/0/" method="get">
+                <input class="form-control me-2" type="text" name="query" placeholder="Search author" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
@@ -50,19 +54,39 @@
                     <li th:each="ingredient : ${recipes.ingredientList}" th:text="${ingredient.name}"></li>
                 </ul>
             </div>
+            <div class="mb-3">
+                <h2 class="h4">Collection</h2>
+                <ul>
+                    <li th:each="ingredient : ${recipes.collectionList}" th:text="${ingredient.name}"></li>
+                </ul>
+            </div>
+            <div class="mb-3">
+                <h2 class="h4">Keyword</h2>
+                <ul>
+                    <li th:each="ingredient : ${recipes.keywordList}" th:text="${ingredient.name}"></li>
+                </ul>
+            </div>
+            <div class="mb-3">
+                <h2 class="h4">Diet Type</h2>
+                <ul>
+                    <li th:each="ingredient : ${recipes.dietTypeList}" th:text="${ingredient.name}"></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 <script>
-    document.querySelector('.d-flex').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent form submission
-      var query = document.querySelector('.form-control').value;
-      if (query.trim() !== '') {
-        var baseUrl = 'http://localhost:8080/recipes/search-by-name/page/0/';
-        var encodedQuery = encodeURIComponent(query);
-        var url = baseUrl + encodedQuery;
-        window.location.href = url;
-      }
+    document.querySelectorAll('.d-flex').forEach(function(form) {
+      form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        var query = form.querySelector('.form-control').value;
+        if (query.trim() !== '') {
+          var baseUrl = form.getAttribute('action');
+          var encodedQuery = encodeURIComponent(query);
+          var url = baseUrl + encodedQuery;
+          window.location.href = url;
+        }
+      });
     });
 </script>
 

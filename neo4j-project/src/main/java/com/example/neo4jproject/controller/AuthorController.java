@@ -20,7 +20,7 @@ public class AuthorController {
     @Autowired
     private final AuthorService authorService;
 
-    @GetMapping("{authorName}/{pageNumber}")
+    @GetMapping("/search-by-name/page/{pageNumber}/{authorName}")
     public String getAllRecipesByAuthor(@PathVariable Optional<Integer> pageNumber, @PathVariable String authorName, Model model){
         int pageSize = 20;
         Page<AuthorInfo> authorInfos = authorService.findAllRecipesByAuthorName(pageNumber.orElse(0), pageSize, authorName);
