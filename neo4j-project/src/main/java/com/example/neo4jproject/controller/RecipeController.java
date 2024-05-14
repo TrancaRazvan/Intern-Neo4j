@@ -38,7 +38,6 @@ public class RecipeController {
         } else return "error.html";
     }
 
-    //Metoda functioneaza, dar nu am reusit sa fac sa mearga search bar-ul din html
     @GetMapping("/search-by-name/page/{pageNumber}/{keyword}")
     public String getRecipesByKeyword(Model model, @PathVariable Optional<Integer> pageNumber, @PathVariable String keyword) {
         int pageSize = 20;
