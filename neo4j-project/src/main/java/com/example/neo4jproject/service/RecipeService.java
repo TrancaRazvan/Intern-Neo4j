@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
@@ -34,9 +36,14 @@ public class RecipeService {
             return recipeInfoMapper.apply(recipe);
         } else return null;
     }
+
     public Page<RecipeWithAuthor> getRecipesByKeyword(int pageNumber, int pageSize, String keyword) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("name").ascending());
         return recipeRepository.findByNameContaining(pageRequest, keyword).map(recipeWithAuthorMapper);
+    }
+
+    public List<Recipe> findRecipeByIngredientName(String ingredientName) {
+        return recipeRepository.findAllRecipesByName(ingredientName);
     }
 
     //Requirement 4,

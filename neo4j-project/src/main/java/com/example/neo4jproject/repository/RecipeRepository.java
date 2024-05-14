@@ -19,8 +19,9 @@ public interface RecipeRepository extends Neo4jRepository<Recipe, Long> {
 
     Page<Recipe> findByNameContaining(Pageable pageable, String keyword);
 
-    //Requirement 4,
-//    @Query(value = "MATCH (r:Recipe)-[:CONTAINS_INGREDIENT]->(i:Ingredient) WHERE i.name = $ingredientName RETURN r",
+    //    @Query(value = "MATCH (r:Recipe)-[:CONTAINS_INGREDIENT]->(i:Ingredient) WHERE i.name = $ingredientName RETURN r",
 //            countQuery = "MATCH (r:Recipe)-[:CONTAINS_INGREDIENT]->(i:Ingredient) WHERE i.name = $ingredientName RETURN count(r)")
 //    Page<Recipe> findByIngredientName(Pageable pageable, String ingredientName);
+    @Query(value = "MATCH (r:Recipe)-[:CONTAINS_INGREDIENT]->(i:Ingredient) WHERE i.name = $ingredientName RETURN r")
+    List<Recipe> findAllRecipesByName(String ingredientName);
 }
